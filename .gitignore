@@ -1,6 +1,9 @@
 # IntelliJ files
 .idea
 
+# Build artifacts
+out
+
 # Compiled class file
 *.class
 
