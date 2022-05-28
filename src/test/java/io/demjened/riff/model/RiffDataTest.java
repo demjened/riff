@@ -7,7 +7,7 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class RiffDataTest {
+public class RiffDataTest {
 
     @Test
     public void testConstructor() {
