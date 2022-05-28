@@ -1,9 +1,6 @@
 package io.demjened.riff.model;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.LinkedHashSet;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -21,6 +18,27 @@ public class RiffData<T> {
         this.left = new LinkedHashSet<>();
         this.right = new LinkedHashSet<>();
         this.changes = initializeChanges();
+    }
+
+    public Collection<T> getLeft() {
+        return left;
+    }
+
+    public Collection<T> getRight() {
+        return right;
+    }
+
+    public Map<ChangeType, Collection<T>> getChanges() {
+        return changes;
+    }
+
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", RiffData.class.getSimpleName() + "[", "]")
+                .add("left=" + left)
+                .add("right=" + right)
+                .add("changes=" + changes)
+                .toString();
     }
 
     private Map<ChangeType, Collection<T>> initializeChanges() {
