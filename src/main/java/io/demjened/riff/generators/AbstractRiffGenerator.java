@@ -4,6 +4,12 @@ import io.demjened.riff.model.RiffData;
 
 import java.util.Collection;
 
+/**
+ * Base class for riff generators. Exposes methods for setting up and executing the generation. Subclasses should
+ * override select methods they need for their diff process.
+ *
+ * @param <T> Type of items to diff
+ */
 public abstract class AbstractRiffGenerator<T> implements RiffGenerator<T> {
 
     protected final RiffData<T> data;

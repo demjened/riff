@@ -5,8 +5,10 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
- * TODO: complete
- * @param <T> Type of elements to compare
+ * Rich diff (riff) data. Holds two collections: left (before state), right (after state) and a map of
+ * {@link ChangeType}-s.
+ *
+ * @param <T> Type of items to diff
  */
 public class RiffData<T> {
 

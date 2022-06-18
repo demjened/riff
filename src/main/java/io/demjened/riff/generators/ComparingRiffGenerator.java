@@ -5,6 +5,12 @@ import io.demjened.riff.model.RiffData;
 
 import java.util.Collection;
 
+/**
+ * Riff generator that accepts two collections: left (before) and right (after). When generating the riff it identifies
+ * the change to each item by comparing its before/after state.
+ *
+ * @param <T> Type of items to diff
+ */
 public class ComparingRiffGenerator<T> extends AbstractRiffGenerator<T> {
 
     @Override

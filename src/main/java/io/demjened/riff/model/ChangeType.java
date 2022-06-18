@@ -1,7 +1,7 @@
 package io.demjened.riff.model;
 
 /**
- * Type of change to an element.
+ * Type of change to an item.
  */
 public enum ChangeType {
 
