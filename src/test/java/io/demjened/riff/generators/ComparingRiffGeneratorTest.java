@@ -9,12 +9,12 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ComparingRiffGeneratorTest {
+public class ComparingRiffGeneratorTest {
 
     private final ComparingRiffGenerator<String> subject = new ComparingRiffGenerator<>();
 
     @Test
-    void generate() {
+    public void testGenerate() {
         Set<String> left = Set.of("Alice", "Bob", "Charlie", "Diana");
         Set<String> right = Set.of("Bob", "Alice", "Ed", "Frank");
 

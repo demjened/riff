@@ -7,7 +7,7 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class AbstractRiffGeneratorTest {
+public class AbstractRiffGeneratorTest {
 
     static class TestRiffGenerator extends AbstractRiffGenerator<String> {}
 
@@ -16,14 +16,14 @@ class AbstractRiffGeneratorTest {
     private final Set<String> items = Set.of("Alice", "Bob", "Charlie");
 
     @Test
-    void testGenerate() {
+    public void testGenerate() {
         RiffData<String> result = subject.generate();
 
         assertSame(subject.data, result);
     }
 
     @Test
-    void testSetLeft() {
+    public void testSetLeft() {
         AbstractRiffGenerator<String> result = subject.setLeft(items);
 
         assertSame(subject, result);
@@ -31,7 +31,7 @@ class AbstractRiffGeneratorTest {
     }
 
     @Test
-    void testSetRight() {
+    public void testSetRight() {
         AbstractRiffGenerator<String> result = subject.setRight(items);
 
         assertSame(subject, result);

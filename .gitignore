@@ -3,6 +3,7 @@
 
 # Build artifacts
 out
+target
 
 # Compiled class file
 *.class
