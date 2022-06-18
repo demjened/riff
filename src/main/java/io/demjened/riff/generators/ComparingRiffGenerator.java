@@ -1,6 +1,5 @@
 package io.demjened.riff.generators;
 
-import io.demjened.riff.model.ChangeType;
 import io.demjened.riff.model.RiffData;
 
 import java.util.Collection;
@@ -26,20 +25,21 @@ public class ComparingRiffGenerator<T> extends AbstractRiffGenerator<T> {
     @Override
     public RiffData<T> generate() {
         // Items only in right are marked as added
-        // Items both in left and right are marked as modified
+        // Items both in left and right are marked as unmodified
         // TODO: Optimize lookup with a pre-generated map
         // TODO: Evaluate if item is really modified or not
         data.getLeft().forEach(leftItem -> {
-            ChangeType changeType = data.getRight().contains(leftItem) ? ChangeType.UNMODIFIED : ChangeType.REMOVED;
-
-            // TODO: Add convenience methods for easier management of change types
-            data.getChanges().get(changeType).add(leftItem);
+            if (data.getRight().contains(leftItem)) {
+                unmodified(leftItem);
+            } else {
+                removed(leftItem);
+            }
         });
 
         // Items only in left are marked as removed
         data.getRight().stream()
                 .filter(rightItem -> !data.getLeft().contains(rightItem))
-                .forEach(rightItem -> data.getChanges().get(ChangeType.ADDED).add(rightItem));
+                .forEach(this::added);
 
         return data;
     }

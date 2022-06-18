@@ -1,5 +1,6 @@
 package io.demjened.riff.generators;
 
+import io.demjened.riff.model.ChangeType;
 import io.demjened.riff.model.RiffData;
 
 import java.util.Collection;
@@ -35,6 +36,26 @@ public abstract class AbstractRiffGenerator<T> implements RiffGenerator<T> {
         data.getRight().addAll(right);
 
         return this;
+    }
+
+    protected void added(T item) {
+        changed(item, ChangeType.ADDED);
+    }
+
+    protected void removed(T item) {
+        changed(item, ChangeType.REMOVED);
+    }
+
+    protected void modified(T item) {
+        changed(item, ChangeType.MODIFIED);
+    }
+
+    protected void unmodified(T item) {
+        changed(item, ChangeType.UNMODIFIED);
+    }
+
+    private void changed(T item, ChangeType changeType) {
+        data.getChanges().get(changeType).add(item);
     }
 
 }
