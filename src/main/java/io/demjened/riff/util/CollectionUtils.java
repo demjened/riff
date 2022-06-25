@@ -7,6 +7,8 @@ import java.util.stream.Collectors;
 
 public class CollectionUtils {
 
+    private CollectionUtils() {}
+
     /**
      * Converts the supplied collection into a map in which each element acts as its own key.
      *
