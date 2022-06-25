@@ -1,0 +1,27 @@
+package io.demjened.riff.util;
+
+import java.util.Collection;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+public class CollectionUtils {
+
+    /**
+     * Converts the supplied collection into a map in which each elements acts as its own key.
+     *
+     * @param coll The collection
+     * @return Converted map
+     * @param <T> Type of elements
+     */
+    public static <T> Map<T, T> mapify(Collection<T> coll) {
+        return coll.stream()
+                .collect(Collectors.toMap(
+                        Function.identity(),
+                        Function.identity(),
+                        (k1, k2) -> k1,
+                        LinkedHashMap::new));
+    }
+
+}
