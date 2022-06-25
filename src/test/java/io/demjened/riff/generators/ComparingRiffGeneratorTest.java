@@ -15,10 +15,10 @@ public class ComparingRiffGeneratorTest {
 
     static class Person {
 
-        private Number id;
-        private String name;
+        private final Integer id;
+        private final String name;
 
-        public Person(Number id, String name) {
+        public Person(Integer id, String name) {
             this.id = id;
             this.name = name;
         }
