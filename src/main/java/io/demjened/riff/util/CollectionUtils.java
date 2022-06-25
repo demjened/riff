@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 public class CollectionUtils {
 
     /**
-     * Converts the supplied collection into a map in which each elements acts as its own key.
+     * Converts the supplied collection into a map in which each element acts as its own key.
      *
      * @param coll The collection
      * @return Converted map
