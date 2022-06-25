@@ -1,7 +1,6 @@
 package io.demjened.riff.util;
 
 import java.util.Collection;
-import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -19,9 +18,7 @@ public class CollectionUtils {
         return coll.stream()
                 .collect(Collectors.toMap(
                         Function.identity(),
-                        Function.identity(),
-                        (k1, k2) -> k1,
-                        LinkedHashMap::new));
+                        Function.identity()));
     }
 
 }

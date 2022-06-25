@@ -74,36 +74,48 @@ public abstract class AbstractRiffGenerator<T> implements RiffGenerator<T> {
      * Marks the item as added.
      *
      * @param item The item
+     * @return This generator object
      */
-    protected void added(T item) {
+    protected AbstractRiffGenerator<T> added(T item) {
         changed(item, ChangeType.ADDED);
+
+        return this;
     }
 
     /**
      * Marks the item as removed.
      *
      * @param item The item
+     * @return This generator object
      */
-    protected void removed(T item) {
+    protected AbstractRiffGenerator<T> removed(T item) {
         changed(item, ChangeType.REMOVED);
+
+        return this;
     }
 
     /**
      * Marks the item as modified.
      *
      * @param item The item
+     * @return This generator object
      */
-    protected void modified(T item) {
+    protected AbstractRiffGenerator<T> modified(T item) {
         changed(item, ChangeType.MODIFIED);
+
+        return this;
     }
 
     /**
      * Marks the item as unmodified.
      *
      * @param item The item
+     * @return This generator object
      */
-    protected void unmodified(T item) {
+    protected AbstractRiffGenerator<T> unmodified(T item) {
         changed(item, ChangeType.UNMODIFIED);
+
+        return this;
     }
 
     private void changed(T item, ChangeType changeType) {

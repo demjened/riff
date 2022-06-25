@@ -2,8 +2,11 @@ package io.demjened.riff.generators;
 
 import io.demjened.riff.config.RiffConfig;
 import io.demjened.riff.model.RiffData;
+import io.demjened.riff.util.CollectionUtils;
 
 import java.util.Collection;
+import java.util.Map;
+import java.util.Optional;
 
 /**
  * Riff generator that accepts two collections: left (before) and right (after). When generating the riff it identifies
@@ -30,27 +33,13 @@ public class ComparingRiffGenerator<T> extends AbstractRiffGenerator<T> {
 
     @Override
     public RiffData<T> generate() {
-        // Items only in right are marked as added
-        // Items both in left and right are marked as unmodified
-        // TODO: Optimize lookup with a pre-generated map
-        data.getLeft().forEach(leftItem -> {
-            if (data.getRight().contains(leftItem)) {
-                T rightItem = data.getRight().stream()
-                        .filter(item -> item.equals(leftItem))
-                        .findFirst()
-                        .get();
+        Map<T, T> rightItemsBySelf = CollectionUtils.mapify(data.getRight());
 
-                // Items both equal and deep equal are marked as unmodified
-                // Items equal but not deep equal are marked as modified
-                if (config.hasDeepEqualityCheck() && !config.getDeepEqualityCheck().apply(leftItem, rightItem)) {
-                    modified(leftItem);
-                } else {
-                    unmodified(leftItem);
-                }
-            } else {
-                removed(leftItem);
-            }
-        });
+        // Items only in right are marked as added
+        // Items both equal and deep equal are marked as unmodified
+        // Items equal but not deep equal are marked as modified
+        data.getLeft().forEach(leftItem -> Optional.ofNullable(rightItemsBySelf.get(leftItem))
+                .ifPresentOrElse(rightItem -> evaluateModified(leftItem, rightItem), () -> removed(leftItem)));
 
         // Items only in left are marked as removed
         data.getRight().stream()
@@ -58,6 +47,13 @@ public class ComparingRiffGenerator<T> extends AbstractRiffGenerator<T> {
                 .forEach(this::added);
 
         return data;
+    }
+
+    private void evaluateModified(T leftItem, T rightItem) {
+        Optional.ofNullable(config.getDeepEqualityCheck())
+                .filter(deepEqualityCheck -> !deepEqualityCheck.apply(leftItem, rightItem))
+                .map(ignore -> modified(leftItem))
+                .orElseGet(() -> unmodified(leftItem));
     }
 
 }
