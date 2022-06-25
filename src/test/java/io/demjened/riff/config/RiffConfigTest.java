@@ -4,10 +4,16 @@ import org.junit.jupiter.api.Test;
 
 import java.util.function.BiFunction;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class RiffConfigTest {
+
+    @Test
+    public void testDefaultConfig() {
+        RiffConfig<String> subject = new RiffConfig<>();
+
+        assertFalse(subject.hasDeepEqualityCheck());
+    }
 
     @Test
     public void testWithDeepEqualityCheck() {

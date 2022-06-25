@@ -7,10 +7,10 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class RiffDataTest {
+public class RiffDataTest {
 
     @Test
-    void testConstructor() {
+    public void testConstructor() {
         RiffData<Object> subject = new RiffData<>();
 
         assertEquals(Map.of(
@@ -21,7 +21,7 @@ class RiffDataTest {
     }
 
     @Test
-    void testToString() {
+    public void testToString() {
         RiffData<Object> subject = new RiffData<>();
 
         String subjectAsString = subject.toString();
