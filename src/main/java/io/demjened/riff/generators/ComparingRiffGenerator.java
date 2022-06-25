@@ -17,7 +17,7 @@ import java.util.Optional;
 public class ComparingRiffGenerator<T> extends AbstractRiffGenerator<T> {
 
     @Override
-    protected AbstractRiffGenerator<T> withConfig(RiffConfig<T> config) {
+    protected ComparingRiffGenerator<T> withConfig(RiffConfig<T> config) {
         return (ComparingRiffGenerator<T>) super.withConfig(config);
     }
 
