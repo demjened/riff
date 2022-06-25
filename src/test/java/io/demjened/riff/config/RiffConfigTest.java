@@ -3,17 +3,11 @@ package io.demjened.riff.config;
 import org.junit.jupiter.api.Test;
 
 import java.util.function.BiFunction;
+import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class RiffConfigTest {
-
-    @Test
-    public void testDefaultConfig() {
-        RiffConfig<String> subject = new RiffConfig<>();
-
-        assertFalse(subject.hasDeepEqualityCheck());
-    }
 
     @Test
     public void testWithDeepEqualityCheck() {
@@ -23,7 +17,16 @@ public class RiffConfigTest {
                 .withDeepEqualityCheck(deepEqualityCheck);
 
         assertEquals(deepEqualityCheck, subject.getDeepEqualityCheck());
-        assertTrue(subject.hasDeepEqualityCheck());
+    }
+
+    @Test
+    public void testWithCloner() {
+        Function<String, String> cloner = String::new;
+
+        RiffConfig<String> subject = new RiffConfig<String>()
+                .withCloner(cloner);
+
+        assertEquals(cloner, subject.getCloner());
     }
 
 }

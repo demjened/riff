@@ -5,6 +5,8 @@ import io.demjened.riff.model.ChangeType;
 import io.demjened.riff.model.RiffData;
 
 import java.util.Collection;
+import java.util.Optional;
+import java.util.function.Function;
 
 /**
  * Base class for riff generators. Exposes methods for setting up and executing the generation. Subclasses should
@@ -119,7 +121,10 @@ public abstract class AbstractRiffGenerator<T> implements RiffGenerator<T> {
     }
 
     private void changed(T item, ChangeType changeType) {
-        data.getChanges().get(changeType).add(item);
+        Function<T, T> cloner = Optional.ofNullable(config.getCloner())
+                .orElse(Function.identity());
+
+        data.getChanges().get(changeType).add(cloner.apply(item));
     }
 
 }
