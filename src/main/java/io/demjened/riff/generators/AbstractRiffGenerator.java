@@ -1,5 +1,6 @@
 package io.demjened.riff.generators;
 
+import io.demjened.riff.config.RiffConfig;
 import io.demjened.riff.model.ChangeType;
 import io.demjened.riff.model.RiffData;
 
@@ -13,10 +14,14 @@ import java.util.Collection;
  */
 public abstract class AbstractRiffGenerator<T> implements RiffGenerator<T> {
 
+    private final RiffConfig<T> defaultConfig = new RiffConfig<>();
+
     protected final RiffData<T> data;
+    protected RiffConfig<T> config;
 
     public AbstractRiffGenerator() {
         this.data = new RiffData<>();
+        this.config = defaultConfig;
     }
 
     @Override
@@ -25,11 +30,24 @@ public abstract class AbstractRiffGenerator<T> implements RiffGenerator<T> {
     }
 
     /**
+     * Sets the riff config that controls the comparison logic.<br/>
+     * Subclasses should override this method and downcast the return type.
+     *
+     * @param config The config
+     * @return This generator object
+     */
+    protected AbstractRiffGenerator<T> withConfig(RiffConfig<T> config) {
+        this.config = config;
+
+        return this;
+    }
+
+    /**
      * Sets the left collection. Replaces the previous one if there's one.<br/>
      * Subclasses should override this method and downcast the return type.
      *
      * @param left Left collection
-     * @return The generator object
+     * @return This generator object
      */
     protected AbstractRiffGenerator<T> setLeft(Collection<T> left) {
         data.getLeft().clear();
@@ -43,7 +61,7 @@ public abstract class AbstractRiffGenerator<T> implements RiffGenerator<T> {
      * Subclasses should override this method and downcast the return type.
      *
      * @param right Right collection
-     * @return The generator object
+     * @return This generator object
      */
     protected AbstractRiffGenerator<T> setRight(Collection<T> right) {
         data.getRight().clear();

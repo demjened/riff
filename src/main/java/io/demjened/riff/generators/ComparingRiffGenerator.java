@@ -1,5 +1,6 @@
 package io.demjened.riff.generators;
 
+import io.demjened.riff.config.RiffConfig;
 import io.demjened.riff.model.RiffData;
 
 import java.util.Collection;
@@ -11,6 +12,11 @@ import java.util.Collection;
  * @param <T> Type of items to diff
  */
 public class ComparingRiffGenerator<T> extends AbstractRiffGenerator<T> {
+
+    @Override
+    protected AbstractRiffGenerator<T> withConfig(RiffConfig<T> config) {
+        return (ComparingRiffGenerator<T>) super.withConfig(config);
+    }
 
     @Override
     protected ComparingRiffGenerator<T> setLeft(Collection<T> left) {
@@ -27,10 +33,20 @@ public class ComparingRiffGenerator<T> extends AbstractRiffGenerator<T> {
         // Items only in right are marked as added
         // Items both in left and right are marked as unmodified
         // TODO: Optimize lookup with a pre-generated map
-        // TODO: Evaluate if item is really modified or not
         data.getLeft().forEach(leftItem -> {
             if (data.getRight().contains(leftItem)) {
-                unmodified(leftItem);
+                T rightItem = data.getRight().stream()
+                        .filter(item -> item.equals(leftItem))
+                        .findFirst()
+                        .get();
+
+                // Items both equal and deep equal are marked as unmodified
+                // Items equal but not deep equal are marked as modified
+                if (config.hasDeepEqualityCheck() && !config.getDeepEqualityCheck().apply(leftItem, rightItem)) {
+                    modified(leftItem);
+                } else {
+                    unmodified(leftItem);
+                }
             } else {
                 removed(leftItem);
             }

@@ -1,5 +1,6 @@
 package io.demjened.riff.generators;
 
+import io.demjened.riff.config.RiffConfig;
 import io.demjened.riff.model.RiffData;
 import org.junit.jupiter.api.Test;
 
@@ -20,6 +21,15 @@ public class AbstractRiffGeneratorTest {
         RiffData<String> result = subject.generate();
 
         assertSame(subject.data, result);
+    }
+
+    @Test
+    public void testWithConfig() {
+        RiffConfig<String> config = new RiffConfig<>();
+        AbstractRiffGenerator<String> result = subject.withConfig(config);
+
+        assertSame(subject, result);
+        assertSame(config, subject.config);
     }
 
     @Test
