@@ -20,6 +20,7 @@ public abstract class AbstractRiffGenerator<T> implements RiffGenerator<T> {
 
     protected final RiffData<T> data;
     protected RiffConfig<T> config;
+    private Function<T, T> cloner;
 
     public AbstractRiffGenerator() {
         this.data = new RiffData<>();
@@ -121,10 +122,25 @@ public abstract class AbstractRiffGenerator<T> implements RiffGenerator<T> {
     }
 
     private void changed(T item, ChangeType changeType) {
-        Function<T, T> cloner = Optional.ofNullable(config.getCloner())
-                .orElse(Function.identity());
+        data.getChanges()
+                .get(changeType)
+                .add(getCloner().apply(item));
+    }
 
-        data.getChanges().get(changeType).add(cloner.apply(item));
+    /**
+     * Gets the cloner function from the config once. If it's not configured, the identity function is returned which
+     * points to the passed item itself without cloning it.
+     *
+     * @return The cloner function
+     */
+    private Function<T, T> getCloner() {
+        return Optional.ofNullable(cloner)
+                .orElseGet(() -> {
+                    cloner = Optional.ofNullable(config.getCloner())
+                            .orElse(Function.identity());
+
+                    return cloner;
+                });
     }
 
 }
