@@ -34,8 +34,8 @@ Generators follow the builder pattern, calling a chain of methods to set the req
 ```java
 // Generate the riff
 RiffData<MyClass> riff = new ComparingRiffGenerator<MyClass>()
-        .setLeft(left)
-        .setRight(right)
+        .withLeft(left)
+        .withRight(right)
         .generate();
 
 // Get the changes
@@ -50,7 +50,7 @@ Map<ChangeType, Set<MyClass>> changes = riff.getChanges();
 ```java
 // Generate the riff
 RiffData<MyClass> riff = new ChangeSpecifyingRiffGenerator<MyClass>()
-        .setLeft(left)
+        .withLeft(left)
         .added(alice)
         .added(bob)
         .removed(charlie)
@@ -69,6 +69,7 @@ Set<MyClass> right = riff.getRight();
 You can implement your own riff generator by extending `AbstractRiffGenerator`.
 
 **Example usage**
+
 ```java
 import io.demjened.riff.generators.AbstractRiffGenerator;
 import io.demjened.riff.model.RiffData;
@@ -79,10 +80,10 @@ class MyRiffGenerator<T> extends AbstractRiffGenerator<T> {
 
     // Override those methods you want to use in a builder chain, and cast to your subclass
     @Override
-    protected AbstractRiffGenerator<T> setLeft(Collection<T> left) {
+    protected AbstractRiffGenerator<T> withLeft(Collection<T> left) {
         /* Custom logic */
-        
-        return (MyRiffGenerator) super.setLeft(left);
+
+        return (MyRiffGenerator) super.withLeft(left);
     }
 
     @Override
@@ -133,8 +134,8 @@ Set<Person> right = Set.of(new Person(1, "Alice", 38, Food.SUSHI), ...);
 RiffData<Person> riff = new ComparingRiffGenerator()
         .withConfig(new RiffConfig<Person>()
                 .withDeepEqualityCheck(Person::deepEquals))
-        .setLeft(left)
-        .setRight(right)
+        .withLeft(left)
+        .withRight(right)
         .generate();
 
 Set<Person> modified = riff.getChanges().get(ChangeType.MODIFIED); // Will contain "Alice"

@@ -52,7 +52,7 @@ public abstract class AbstractRiffGenerator<T> implements RiffGenerator<T> {
      * @param left Left collection
      * @return This generator object
      */
-    protected AbstractRiffGenerator<T> setLeft(Collection<T> left) {
+    protected AbstractRiffGenerator<T> withLeft(Collection<T> left) {
         data.getLeft().clear();
         data.getLeft().addAll(left);
 
@@ -66,7 +66,7 @@ public abstract class AbstractRiffGenerator<T> implements RiffGenerator<T> {
      * @param right Right collection
      * @return This generator object
      */
-    protected AbstractRiffGenerator<T> setRight(Collection<T> right) {
+    protected AbstractRiffGenerator<T> withRight(Collection<T> right) {
         data.getRight().clear();
         data.getRight().addAll(right);
 

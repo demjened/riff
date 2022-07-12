@@ -33,16 +33,16 @@ public class AbstractRiffGeneratorTest {
     }
 
     @Test
-    public void testSetLeft() {
-        AbstractRiffGenerator<String> result = subject.setLeft(items);
+    public void testWithLeft() {
+        AbstractRiffGenerator<String> result = subject.withLeft(items);
 
         assertSame(subject, result);
         assertEquals(items, subject.data.getLeft());
     }
 
     @Test
-    public void testSetRight() {
-        AbstractRiffGenerator<String> result = subject.setRight(items);
+    public void testWithRight() {
+        AbstractRiffGenerator<String> result = subject.withRight(items);
 
         assertSame(subject, result);
         assertEquals(items, subject.data.getRight());

@@ -54,8 +54,8 @@ public class ComparingRiffGeneratorTest {
         Set<String> right = Set.of("Bob", "Alice", "Ed", "Frank");
 
         RiffData<String> riffData = new ComparingRiffGenerator<String>()
-                .setLeft(left)
-                .setRight(right)
+                .withLeft(left)
+                .withRight(right)
                 .generate();
 
         assertEquals(left, riffData.getLeft());
@@ -82,8 +82,8 @@ public class ComparingRiffGeneratorTest {
         RiffData<Person> riffData = new ComparingRiffGenerator<Person>()
                 .withConfig(new RiffConfig<Person>()
                         .withDeepEqualityCheck(Person::deepEquals))
-                .setLeft(left)
-                .setRight(right)
+                .withLeft(left)
+                .withRight(right)
                 .generate();
 
         assertEquals(Map.of(
@@ -108,8 +108,8 @@ public class ComparingRiffGeneratorTest {
         RiffData<Person> riffData = new ComparingRiffGenerator<Person>()
                 .withConfig(new RiffConfig<Person>()
                         .withCloner(Person::clone))
-                .setLeft(left)
-                .setRight(right)
+                .withLeft(left)
+                .withRight(right)
                 .generate();
 
         assertEquals(Map.of(

@@ -22,13 +22,13 @@ public class ComparingRiffGenerator<T> extends AbstractRiffGenerator<T> {
     }
 
     @Override
-    protected ComparingRiffGenerator<T> setLeft(Collection<T> left) {
-        return (ComparingRiffGenerator<T>) super.setLeft(left);
+    protected ComparingRiffGenerator<T> withLeft(Collection<T> left) {
+        return (ComparingRiffGenerator<T>) super.withLeft(left);
     }
 
     @Override
-    protected ComparingRiffGenerator<T> setRight(Collection<T> right) {
-        return (ComparingRiffGenerator<T>) super.setRight(right);
+    protected ComparingRiffGenerator<T> withRight(Collection<T> right) {
+        return (ComparingRiffGenerator<T>) super.withRight(right);
     }
 
     @Override
